@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/menus-and-podiums.css">
+        <link rel="stylesheet" href="css/drop-up-chosen.css">
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="bower_components/flag-icon-css/css/flag-icon.min.css">
+        <link rel="stylesheet" href="bower_components/chosen/chosen.css">
+
+        <!-- <script type="text/javascript">
+            window.$ = window.jQuery = require('./bower_components/jquery/dist/jquery.js'); // ELECTRON
+        </script> -->
+        <!-- BROSWER -->
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="bower_components/chosen/chosen.jquery.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+        <script type="text/javascript" src="bower_components/backbone/backbone.js"></script>
+        <script type="text/javascript" src="bower_components/backbone.radio/build/backbone.radio.js"></script>
+        <script type="text/javascript" src="bower_components/d3/d3.js"></script>
+        <script type="text/javascript" src="data/worldMap.js"></script>
+
+        <script type="text/javascript" src="js/utilities/Utilities.js" ></script>
+        <script type="text/javascript" src="js/utilities/dropUpChosen.js" ></script>
+        <script type="text/javascript" src="js/models/GameModel.js" ></script>
+        <script type="text/javascript" src="js/models/PlayerModel.js" ></script>
+        <script type="text/javascript" src="js/MainMenu.js"></script>
+        <script type="text/javascript" src="js/GameUI.js" ></script>
+        <script type="text/javascript" src="js/PlayerUI.js" ></script>
+        <script type="text/javascript" src="js/Map.js" ></script>
+        <script type="text/javascript" src="js/main.js" ></script>
+        <title></title>
+    </head>
+    <body>
+
+        <div id="container-game">
+            <div id="reset">
+                    <span id="reset-button" class="badge">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </span>
+                </div>
+            <div id="hint-button" class="label label-primary">
+                    Hint
+            </div>
+            <div id='country-hover' style='position: absolute;'></div>
+        </div>
+
+        <div id="bottom-bar">
+            <i class="fa fa-user fa-4x" id="icon-player"><i id='player-1-turn' class="player-turn fa fa-caret-down"></i></i>
+
+            <div id='player-info'>
+                <span class='info' ><i id="player-1-points"            class="fa fa-trophy">0</i></span>
+                <span class='info' ><i id='player-1-countries-guessed' class="fa fa-check">0</i></span>
+                <span class='info' ><i id='player-1-countries-missed'  class="fa fa-times">0</i></span>
+            </div>
+
+            <div id='player2-div' style='display:none'>
+                <i class="fa fa-user fa-4x" id="icon-player2"><i id='player-2-turn' class="player-turn fa fa-caret-down"></i></i>
+
+                <div id='player2-info'>
+                    <span class='info' ><i id="player-2-points"            class="fa fa-trophy">0</i></span>
+                    <span class='info' ><i id='player-2-countries-guessed' class="fa fa-check">0</i></span>
+                    <span class='info' ><i id='player-2-countries-missed'  class="fa fa-times">0</i></span>
+                </div>
+            </div>
+
+            <div class="country-name-panel"> <!-- only names of to country to choose, and each flag -->
+                <h1 id="h-country">
+                    <!-- <span class="flag-icon flag-icon-gr"></span> -->
+                </h1>
+                <div id='select-country' class='select-country'>
+                    <select id="select-child" data-placeholder="Choose a country for your rival..." style="width:350px;" multiple class="chosen-select chzn-drop-up">
+                        <!-- <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option> -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div id="menu-container">
+            <div id="menu-difficulty-modes">
+                <div id="easy-mode-button"   data-mode="easy"     class="difficulty-mode-buttons"><p>Short</p></div>
+                <div id="medium-mode-button" data-mode="medium"   class="difficulty-mode-buttons"><p>Medium</p></div>
+                <div id="hard-mode-button"   data-mode="hard"     class="difficulty-mode-buttons"><p>Long</p></div>
+            </div>
+
+            <div id="multi-mode-option">
+                <button id="random-button" data-mode="random" class="orange-circle-button mode-option-multi">Random<span class="orange-circle-greater-than"></span></button>
+
+                <button id="choose-button" data-mode="choose" class="orange-circle-button mode-option-multi">Choose<span class="orange-circle-greater-than"></span></button>
+            </div>
+
+            <div id="single-button" data-mode="single" class="menu-buttons">
+                <i class="fa fa-user icon-menu"></i>
+                <p>SINGLE PLAYER</p>
+            </div>
+            <div id="multi-button" data-mode="multi" class="menu-buttons">
+                <i class="fa fa-users icon-menu"></i>
+                <p>TWO PLAYERS</p>
+            </div>
+        </div>
+
+        <div id='final-panel'>
+            <div id='multi-panel-winner'>
+                <i class="fa fa-trophy trophy-final"></i>
+                <h1 id='winner-h1'></h1>
+                <h1 id='winner-percent'></h1>
+                <i id='sad-face' class="fa fa-frown-o"></i>
+                <h1 id='loser-h1'></h1>
+                <h1 id='loser-percent'></h1>
+            </div>
+            <div id='multi-panel-tie'>
+                <i class="fa fa-balance-scale trophy-final" style='color:black'></i>
+                <h1>Well play, its a Tie, love each other or play again and kill with knowledge</h1>
+                <br>
+                <h1 id='tie-percent'></h1>
+            </div>
+            <div id='single-panel'>
+                <h1>This is the end, my only friend, the end</h1>
+                <br>
+                <h1 id='single-percent'></h1>
+            </div>
+        </div>
+
+    </body>
+</html>
