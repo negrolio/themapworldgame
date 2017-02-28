@@ -84,25 +84,6 @@ h1 {
 	height: 70%;
 }
 
-.icon-menu {
-	font-size: 2.5em !important;
-	color: #236294;
-	position: absolute;
-	margin-top: 0.3em;
-}
-/*
-.reset {
-	position: absolute;
-	left: 40%;
-	top: 50%;
-	background-color: #A7A5DD;
-	width: 85px;
-	height: 60px;
-	border-radius:100%;
-	text-align: center;
-	cursor: pointer;
-}
-*/
 #hint-button{
 	cursor: pointer;
 	position: absolute;

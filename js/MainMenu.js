@@ -27,6 +27,8 @@ MainMenu.prototype = {
             loserPercent          : $('#loser-percent'),
             tiePercent            : $('#tie-percent'),
             singlePercent         : $('#single-percent'),
+            randomButton          : $('#random-button'),
+            chooseButton          : $('#choose-button')
         }
     },
 
@@ -49,12 +51,26 @@ MainMenu.prototype = {
     },
 
     moveMenu : function(mode){
+        this.moveFirstMenu()
+
         check = this.checkElectionPlayer(mode);
-        if (!check){ 
-            this.moveDiv() 
-        }else { 
-            this.moveDiv2(); 
+        if (!check){
+            this.bringMultiModeMenu();
+        }else {
+            // this.UI.menuDifficultyModes.css('position','initial');
+            this.bringDifficultyMenu();
         }
+
+        // this.UI.singleButton.css('animation','mymoveUp 2s').css('animation-fill-mode','forwards');
+    },
+
+    moveFirstMenu : function(){
+      this.UI.singleButton.addClass('animate-single-button'); //this animate with css
+      this.UI.multiButton.addClass('animate-multi-button');
+    },
+    moveMultiPlayersOptions : function(){
+      this.UI.randomButton.addClass('animate-single-button'); //this animate with css
+      this.UI.chooseButton.addClass('animate-multi-button');
     },
 
     checkElectionPlayer : function(mode){
@@ -65,20 +81,12 @@ MainMenu.prototype = {
         }
     },
 
-    moveDiv : function(){
-        var self = this;
-        this.UI.singleButton.css('border-bottom', '2px solid #616E73');
-        this.UI.singleButton.animate({bottom:'+=6.8em'},function(){
-            self.UI.menuPlayers.fadeOut()
-        });
-        this.UI.multiButton.animate({top:'+=12.7em'});
-        this.UI.multiModeOption.fadeIn('slow');
+    bringMultiModeMenu : function(){
+        this.UI.multiModeOption.fadeIn(2000).css("display","block");
     },
 
-    moveDiv2 : function(){
-        this.UI.menuPlayers.fadeOut('fast');
-        this.UI.multiModeOption.fadeOut();
-        this.UI.menuDifficultyModes.fadeIn('slow');
+    bringDifficultyMenu : function(){
+        this.UI.menuDifficultyModes.fadeIn(2000);
     },
 
     // setPlayersMode: function(evt){ // que hace el evt?
@@ -96,7 +104,10 @@ MainMenu.prototype = {
     setMultiMode : function(evt){
         GameModel.multiMode = $(evt.currentTarget).data('mode');
         // aqui deberiamos llamar a setMultiMode de GameModel, pero lo dejamos que lo haga setDifficultyMode para saber antes con cuantos paises se va a jugar
-        this.moveDiv2();
+
+        //this.moveDiv2();
+        this.moveMultiPlayersOptions();
+        this.bringDifficultyMenu();
     },
 
     checkMultiMode: function(){

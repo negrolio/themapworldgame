@@ -1,23 +1,38 @@
-#menu-container {
-	height: 100%;
-	width: 33.3%;
-	background-color: #92999F;
-	padding-top: 15%;
-	margin-left: 33.3%;
-	position: absolute;
+
+* {
+    box-sizing: border-box;
 }
 
+
+#menu-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+	height: 100%;
+	width: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+	background-color: #92999F;
+  overflow: hidden;
+}
+
+
 #menu-difficulty-modes {
+  position: absolute;
+  z-index: 1;
 	height: 37.5%;
 	width: 100%;
-    position: absolute;
 	display: none;
 	cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .difficulty-mode-buttons {
 	height: 33.3%;
 	width: 100%;
 	border-top: 2px solid #616E73;
+	display: flex;
 }
 
 #hard-mode-button {
@@ -25,37 +40,121 @@
 }
 
 .menu-buttons {
-	height: 7em;
+	/*height: 7em;*/
 	width: 100%;
 	border-top: 2px solid #616E73;
 	padding: 1em;
-	position: relative;
+	position: absolute;
+  top: 40%;
 	cursor: pointer;
-	overflow: hidden;
+	/*overflow: hidden;*/
+	display: flex;
+	justify-content: space-around;
+}
+#single-button {
+  transform: translateY(-100%);
+  /*animation: mymoveUp 3s;*/
+  /*animation-fill-mode: forwards;*/
 }
 #multi-button {
 	border-bottom: 2px solid #616E73;
+  /*animation: mymoveDown 3s;
+  animation-fill-mode: forwards;*/
 }
+
+.animate-single-button {
+  border-bottom: 2px solid #616E73;
+  animation: mymoveUp 3s;
+  animation-fill-mode: forwards;
+}
+.animate-multi-button {
+  animation: mymoveDown 3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes mymoveUp {
+    0% {top: 40%;}
+    100% {top: 0;opacity:0;}
+}
+@keyframes mymoveDown {
+    0% {top: 40%;}
+    100% {top: 100%;opacity:0;}
+}
+
+
+#multi-mode-option {
+	height: 50%;
+	width: 100%;
+	display: none;
+	text-align: center;
+	/*flex-direction: column;
+	justify-content: space-around;*/
+	padding: 0 0.5em;
+  position: relative;
+}
+.orange-circle-button {
+  position: absolute;
+  top: 40%;
+	box-shadow: 2px 4px 0 2px rgba(0,0,0,0.1);
+	border: .5em solid #2C6390;
+	line-height: 1.1em;
+	color: #D3DDE0;
+	background-color: #2C6390;
+	margin: auto;
+	border-radius: 50%;
+	height: 100px;
+	width: 100px;
+	/*padding: 1em;*/
+	text-align: center;
+}
+#random-button {
+  transform: translate(-50%,-100%);
+}
+#choose-button {
+  transform: translate(-50%, 10%);
+}
+.orange-circle-button:hover {
+	color:#ffffff;
+    background-color: #E44C27;
+	text-decoration: none;
+	border-color: #E05D3C;
+
+}
+.orange-circle-button:visited {
+	color:#ffffff;
+    background-color: #e84d0e;
+	text-decoration: none;
+
+}
+.orange-circle-link-greater-than {
+    font-size: 1em;
+}
+
 
 #menu-container p{
-	text-align: center;
-    font-weight: bold;
-    color: #103B46;
-    font-size: 3em;
+	text-align: left;
+  font-weight: bold;
+  color: #103B46;
+	margin: 0;
+	margin-left: 10%;
+	width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-#single-button p{
-	margin-left: 0.8em;
-}
-
-#multi-mode-option { 
-	position: absolute;
-    height: 22%;
-    width: 100%;
-    margin-top: 12%;
-    display: none;
+.difficulty-mode-buttons p{
+	text-align: center!important;
+	margin: auto!important;
 }
 
-#random-button {
+.icon-menu {
+	font-size: 2em !important;
+	color: #236294;
+	position: relative;
+}
+
+
+/*#random-button {
 	float: left;
 	margin-left: 10%;
 }
@@ -63,7 +162,7 @@
 #choose-button {
 	float: right;
 	margin-right: 10%;
-}
+}*/
 
 #final-panel {
 	position: absolute;
@@ -100,33 +199,28 @@
 	display: none;
 }
 
+@media (min-width: 500px) {
+  #menu-container {
+    font-size: 1.8em;
+  }
+  .orange-circle-button {
+    width: 125px;
+    height: 125px;
+  }
+  #choose-button {
+    transform: translate(-50%, 20%);
+  }
+}
 
-.orange-circle-button {
-	box-shadow: 2px 4px 0 2px rgba(0,0,0,0.1);
-	border: .5em solid #2C6390;
-	font-size: 200%;
-	line-height: 1.1em;
-	color: #D3DDE0;
-	background-color: #2C6390;
-	margin: auto;
-	border-radius: 50%;
-	height: 100%;
-	width: 37%;
-	position: relative;
+@media (min-width: 700px) {
+  .orange-circle-button {
+    width: 150px;
+    height: 150px;
+  }
 }
-.orange-circle-button:hover {
-	color:#ffffff;
-    background-color: #E44C27;
-	text-decoration: none;
-	border-color: #E05D3C;
-	
-}
-.orange-circle-button:visited {
-	color:#ffffff;
-    background-color: #e84d0e;
-	text-decoration: none;
-	
-}
-.orange-circle-link-greater-than {
-    font-size: 1em;
+
+@media (min-width: 1000px) {
+  #menu-container {
+    width: 30%;
+  }
 }
